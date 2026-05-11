@@ -1,9 +1,8 @@
 package com.drivemind.domain.model
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
 import com.drivemind.R
+import kotlinx.parcelize.Parcelize
 
 /**
  * Core domain model for a captured voice note.
@@ -30,10 +29,10 @@ enum class NoteType(val labelResId: Int) {
 }
 
 enum class NoteCategory(val labelResId: Int, val emoji: String) {
-    GENERAL(R.string.category_general, "📝"),
-    WORK(R.string.category_work, "💼"),
-    PERSONAL(R.string.category_personal, "👤"),
-    SHOPPING(R.string.category_shopping, "🛒"),
-    HEALTH(R.string.category_health, "❤️"),
-    TRAVEL(R.string.category_travel, "✈️")
+    GENERAL(R.string.category_general, "#"),
+    WORK(R.string.category_work, "W"),
+    PERSONAL(R.string.category_personal, "P"),
+    SHOPPING(R.string.category_shopping, "S"),
+    HEALTH(R.string.category_health, "H"),
+    TRAVEL(R.string.category_travel, "T")
 }

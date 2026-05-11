@@ -42,7 +42,7 @@ class NoteDetailViewModel @Inject constructor(
         if (note != null) {
             _uiState.value = UiState.Viewing(note)
         } else {
-            _uiState.value = UiState.Error("Nota não encontrada")
+            _uiState.value = UiState.Error("Note not found")
         }
         ttsManager.initialize { ttsReady.value = true }
     }
@@ -63,7 +63,7 @@ class NoteDetailViewModel @Inject constructor(
             updateNoteUseCase(updated).onSuccess {
                 _uiState.value = UiState.Viewing(updated)
             }.onFailure {
-                _uiState.value = UiState.Error("Falha ao guardar alterações")
+                _uiState.value = UiState.Error("Failed to save changes")
             }
         }
     }

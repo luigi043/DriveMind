@@ -11,16 +11,16 @@
     <string name="listening">Listening\u2026</string>
     <string name="processing">Processing\u2026</string>
     <string name="saved">Saved!</string>
-    <string name="driving_status">🚗 Driving</string>
-    <string name="parked_status">🅿️ Parked</string>
+    <string name="driving_status">Driving</string>
+    <string name="parked_status">Parked</string>
     <string name="tap_to_retry">Tap to try again</string>
     <string name="speed_unit">%1$d km/h</string>
 
     <!-- Note types -->
-    <string name="type_note">📝 Note</string>
-    <string name="type_task">✅ Task</string>
-    <string name="type_reminder">🔔 Reminder</string>
-    <string name="type_idea">💡 Idea</string>
+    <string name="type_note">Note</string>
+    <string name="type_task">Task</string>
+    <string name="type_reminder">Reminder</string>
+    <string name="type_idea">Idea</string>
 
     <!-- Permissions -->
     <string name="permission_audio_rationale">Microphone access is required to capture voice notes.</string>
@@ -42,7 +42,7 @@
     <string name="task_saved_format">Task saved: %1$s</string>
 
     <!-- Empty -->
-    <string name="empty_notes">No notes yet.\nTap the microphone to start! 🎙️</string>
+    <string name="empty_notes">No notes yet.\nTap the microphone to start!</string>
 
     <!-- Search -->
     <string name="search_hint">Search notes\u2026</string>
@@ -75,13 +75,15 @@
     <string name="notification_stop">Stop</string>
     <string name="channel_reminders_name">Reminders</string>
     <string name="channel_reminders_desc">Voice reminder notifications</string>
+
     <!-- Time -->
     <string name="just_now">Just now</string>
     <string name="minutes_ago">%1$d min ago</string>
     <string name="hours_ago">%1$dh ago</string>
+
     <!-- TTS Phrases -->
     <string name="tts_listening">Speak now</string>
-    <string name="tts_error">I couldn\'t understand. Try again.</string>
+    <string name="tts_error">I couldn't understand. Try again.</string>
     <string name="tts_driving_detected">Driving mode active</string>
     <string name="tts_driving_stopped">Driving mode inactive</string>
     <string name="tts_ready">DriveMind ready</string>

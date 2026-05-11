@@ -7,13 +7,12 @@ import android.os.Vibrator
 import android.os.VibratorManager
 import android.view.View
 import android.view.animation.AnimationUtils
-import com.drivemind.R
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 /**
- * Haptic feedback — short pulse for mic tap, double pulse for save.
+ * Haptic feedback: short pulse for mic tap, double pulse for save.
  */
 fun Context.vibrateShort() {
     val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -52,16 +51,16 @@ fun Context.vibrateSuccess() {
 fun Long.toRelativeTime(): String {
     val diffMs = System.currentTimeMillis() - this
     return when {
-        diffMs < 60_000L -> "Agora mesmo"
-        diffMs < 3_600_000L -> "${diffMs / 60_000} min atrás"
-        diffMs < 86_400_000L -> "${diffMs / 3_600_000}h atrás"
-        diffMs < 604_800_000L -> SimpleDateFormat("EEEE", Locale("pt", "PT")).format(Date(this))
-        else -> SimpleDateFormat("dd MMM yyyy", Locale("pt", "PT")).format(Date(this))
+        diffMs < 60_000L -> "Just now"
+        diffMs < 3_600_000L -> "${diffMs / 60_000} min ago"
+        diffMs < 86_400_000L -> "${diffMs / 3_600_000}h ago"
+        diffMs < 604_800_000L -> SimpleDateFormat("EEEE", Locale.ENGLISH).format(Date(this))
+        else -> SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(Date(this))
     }
 }
 
 fun Long.toFullDateTime(): String =
-    SimpleDateFormat("dd MMM yyyy, HH:mm", Locale("pt", "PT")).format(Date(this))
+    SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.ENGLISH).format(Date(this))
 
 /**
  * View visibility helpers.

@@ -233,7 +233,7 @@ The foreground service keeps GPS active even when the app is in the background, 
 ## 🗺️ Roadmap
 
 - [ ] "Hey DriveMind" hotword trigger (always-listening)
-- [ ] AI-powered note summarisation via Claude API
+- [ ] AI-powered note summarisation via ChatGPT API
 - [ ] Scheduled reminder notifications (AlarmManager)
 - [ ] Auto-reply SMS while driving
 - [ ] Widget for quick capture from home screen

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DriveMind</string>
+
+    <!-- Navigation -->
+    <string name="nav_driving">Conduzir</string>
+    <string name="nav_history">Notas</string>
+
+    <!-- Driving screen -->
+    <string name="tap_to_speak">Toca para falar</string>
+    <string name="listening">A ouvir\u2026</string>
+    <string name="processing">A processar\u2026</string>
+    <string name="saved">Guardado!</string>
+    <string name="driving_status">🚗 A conduzir</string>
+    <string name="parked_status">🅿️ Estacionado</string>
+    <string name="tap_to_retry">Toca para tentar novamente</string>
+    <string name="speed_unit">%1$d km/h</string>
+
+    <!-- Note types -->
+    <string name="type_note">📝 Nota</string>
+    <string name="type_task">✅ Tarefa</string>
+    <string name="type_reminder">🔔 Lembrete</string>
+    <string name="type_idea">💡 Ideia</string>
+
+    <!-- Permissions -->
+    <string name="permission_audio_rationale">O microfone é necessário para capturar notas de voz.</string>
+    <string name="permission_location_rationale">A localização é usada para detectar automaticamente quando estás a conduzir.</string>
+
+    <!-- Actions -->
+    <string name="action_delete">Eliminar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_read">Ler em voz alta</string>
+    <string name="action_undo">Desfazer</string>
+    <string name="note_deleted">Nota eliminada</string>
+    <string name="error_save_note">Erro ao guardar nota</string>
+    <string name="error_try_again">Erro ao guardar. Tente novamente.</string>
+    <string name="note_saved_success">Nota guardada com sucesso</string>
+    <string name="task_saved">Tarefa adicionada</string>
+    <string name="reminder_saved">Lembrete criado</string>
+    <string name="idea_saved">Ideia guardada</string>
+    <string name="note_saved">Nota guardada</string>
+    <string name="task_saved_format">Tarefa guardada: %1$s</string>
+
+    <!-- Empty -->
+    <string name="empty_notes">Sem notas ainda.\nToca no microfone para começar! 🎙️</string>
+
+    <!-- Search -->
+    <string name="search_hint">Pesquisar notas\u2026</string>
+
+    <!-- Filter -->
+    <string name="filter_all">Todos</string>
+
+    <!-- Detail -->
+    <string name="save_changes">Guardar Alterações</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete_note_title">Eliminar nota</string>
+    <string name="delete_note_message">Esta nota será eliminada permanentemente.</string>
+    <string name="note_content_hint">Conteúdo da nota</string>
+    <string name="original_prefix">Original: \"%1$s\"</string>
+    <string name="recording_format">Gravação: %1$ds</string>
+    <string name="error_note_not_found">Nota não encontrada</string>
+    <string name="error_save_failed">Falha ao guardar alterações</string>
+
+    <!-- Categories -->
+    <string name="category_general">Geral</string>
+    <string name="category_work">Trabalho</string>
+    <string name="category_personal">Pessoal</string>
+    <string name="category_shopping">Compras</string>
+    <string name="category_health">Saúde</string>
+    <string name="category_travel">Viagem</string>
+
+    <!-- Notification -->
+    <string name="notification_driving_title">DriveMind Ativo</string>
+    <string name="notification_driving_text">A monitorizar modo de condução</string>
+    <string name="notification_stop">Parar</string>
+    <string name="channel_reminders_name">Lembretes</string>
+    <string name="channel_reminders_desc">Notificações de lembretes de voz</string>
+    <!-- Time -->
+    <string name="just_now">Agora mesmo</string>
+    <string name="minutes_ago">%1$d min atrás</string>
+    <string name="hours_ago">%1$dh atrás</string>
+    <!-- TTS Phrases -->
+    <string name="tts_listening">Pode falar agora</string>
+    <string name="tts_error">Não consegui perceber. Tente novamente</string>
+    <string name="tts_driving_detected">Modo de condução ativado</string>
+    <string name="tts_driving_stopped">Modo de condução desativado</string>
+    <string name="tts_ready">DriveMind pronto</string>
+    <string name="nav_detail">Detalhes da nota</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand -->
+    <color name="brand_orange">#FF6B2C</color>
+    <color name="brand_orange_dark">#E05820</color>
+
+    <!-- Backgrounds - Dark theme -->
+    <color name="bg_primary">#0D0D0D</color>
+    <color name="bg_surface">#1A1A1A</color>
+    <color name="bg_elevated">#242424</color>
+    <color name="bg_divider">#2A2A2A</color>
+
+    <!-- Text -->
+    <color name="text_primary">#F5F5F5</color>
+    <color name="text_secondary">#9E9E9E</color>
+    <color name="text_tertiary">#5C5C5C</color>
+
+    <!-- Accent -->
+    <color name="accent_orange">#FF6B2C</color>
+    <color name="accent_green">#4CAF50</color>
+    <color name="accent_blue">#2196F3</color>
+    <color name="accent_yellow">#FFC107</color>
+
+    <!-- States -->
+    <color name="color_driving">#FF6B2C</color>
+    <color name="color_parked">#4CAF50</color>
+
+    <!-- Generic -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Nav -->
+    <color name="nav_active">#FF6B2C</color>
+    <color name="nav_inactive">#5C5C5C</color>
+
+    <!-- Material required -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/drivingFragment">
+
+    <fragment
+        android:id="@+id/drivingFragment"
+        android:name="com.drivemind.ui.driving.DrivingFragment"
+        android:label="@string/nav_driving"
+        tools:layout="@layout/fragment_driving" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.drivemind.ui.history.HistoryFragment"
+        android:label="@string/nav_history"
+        tools:layout="@layout/fragment_history">
+
+        <action
+            android:id="@+id/action_history_to_detail"
+            app:destination="@id/noteDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/noteDetailFragment"
+        android:name="com.drivemind.ui.notes.NoteDetailFragment"
+        android:label="@string/nav_detail"
+        tools:layout="@layout/fragment_note_detail">
+
+        <argument
+            android:name="note"
+            app:argType="com.drivemind.domain.model.VoiceNote" />
+
+    </fragment>
+
+</navigation>

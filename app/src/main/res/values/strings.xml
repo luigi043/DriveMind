@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DriveMind</string>
+
+    <!-- Navigation -->
+    <string name="nav_driving">Drive</string>
+    <string name="nav_history">Notes</string>
+
+    <!-- Driving screen -->
+    <string name="tap_to_speak">Tap to speak</string>
+    <string name="listening">Listening\u2026</string>
+    <string name="processing">Processing\u2026</string>
+    <string name="saved">Saved!</string>
+    <string name="driving_status">🚗 Driving</string>
+    <string name="parked_status">🅿️ Parked</string>
+    <string name="tap_to_retry">Tap to try again</string>
+    <string name="speed_unit">%1$d km/h</string>
+
+    <!-- Note types -->
+    <string name="type_note">📝 Note</string>
+    <string name="type_task">✅ Task</string>
+    <string name="type_reminder">🔔 Reminder</string>
+    <string name="type_idea">💡 Idea</string>
+
+    <!-- Permissions -->
+    <string name="permission_audio_rationale">Microphone access is required to capture voice notes.</string>
+    <string name="permission_location_rationale">Location is used to automatically detect when you are driving.</string>
+
+    <!-- Actions -->
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_read">Read aloud</string>
+    <string name="action_undo">Undo</string>
+    <string name="note_deleted">Note deleted</string>
+    <string name="error_save_note">Error saving note</string>
+    <string name="error_try_again">Error saving. Try again.</string>
+    <string name="note_saved_success">Note saved successfully</string>
+    <string name="task_saved">Task added</string>
+    <string name="reminder_saved">Reminder created</string>
+    <string name="idea_saved">Idea saved</string>
+    <string name="note_saved">Note saved</string>
+    <string name="task_saved_format">Task saved: %1$s</string>
+
+    <!-- Empty -->
+    <string name="empty_notes">No notes yet.\nTap the microphone to start! 🎙️</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search notes\u2026</string>
+
+    <!-- Filter -->
+    <string name="filter_all">All</string>
+
+    <!-- Detail -->
+    <string name="save_changes">Save Changes</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_note_title">Delete note</string>
+    <string name="delete_note_message">This note will be permanently deleted.</string>
+    <string name="note_content_hint">Note content</string>
+    <string name="original_prefix">Original: \"%1$s\"</string>
+    <string name="recording_format">Recording: %1$ds</string>
+    <string name="error_note_not_found">Note not found</string>
+    <string name="error_save_failed">Failed to save changes</string>
+
+    <!-- Categories -->
+    <string name="category_general">General</string>
+    <string name="category_work">Work</string>
+    <string name="category_personal">Personal</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_health">Health</string>
+    <string name="category_travel">Travel</string>
+
+    <!-- Notification -->
+    <string name="notification_driving_title">DriveMind Active</string>
+    <string name="notification_driving_text">Monitoring driving mode</string>
+    <string name="notification_stop">Stop</string>
+    <string name="channel_reminders_name">Reminders</string>
+    <string name="channel_reminders_desc">Voice reminder notifications</string>
+    <!-- Time -->
+    <string name="just_now">Just now</string>
+    <string name="minutes_ago">%1$d min ago</string>
+    <string name="hours_ago">%1$dh ago</string>
+    <!-- TTS Phrases -->
+    <string name="tts_listening">Speak now</string>
+    <string name="tts_error">I couldn\'t understand. Try again.</string>
+    <string name="tts_driving_detected">Driving mode active</string>
+    <string name="tts_driving_stopped">Driving mode inactive</string>
+    <string name="tts_ready">DriveMind ready</string>
+    <string name="nav_detail">Note Details</string>
+</resources>

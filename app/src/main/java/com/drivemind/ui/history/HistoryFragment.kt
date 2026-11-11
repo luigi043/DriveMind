@@ -18,6 +18,7 @@ import com.drivemind.domain.model.VoiceNote
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -85,8 +86,13 @@ class HistoryFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.notes.collect { notes ->
+                    combine(viewModel.notes, viewModel.selectedFilter, viewModel.searchQuery) { notes, filter, query ->
+                        notes to (filter != null || query.isNotBlank())
+                    }.collect { (notes, hasFilter) ->
                         adapter.submitList(notes)
+                        binding.tvEmpty.setText(
+                            if (hasFilter) R.string.no_matching_notes else R.string.empty_notes
+                        )
                         binding.tvEmpty.visibility = if (notes.isEmpty()) View.VISIBLE else View.GONE
                         binding.recyclerNotes.visibility = if (notes.isEmpty()) View.GONE else View.VISIBLE
                     }

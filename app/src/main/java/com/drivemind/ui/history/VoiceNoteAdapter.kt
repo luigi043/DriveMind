@@ -69,8 +69,8 @@ class VoiceNoteAdapter(
                 diffMs < 60_000 -> context.getString(R.string.just_now)
                 diffMs < 3_600_000 -> context.getString(R.string.minutes_ago, diffMs / 60_000)
                 diffMs < 86_400_000 -> context.getString(R.string.hours_ago, diffMs / 3_600_000)
-                diffMs < 604_800_000 -> SimpleDateFormat("EEEE", Locale.getDefault()).format(date)
-                else -> SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)
+                diffMs < 604_800_000 -> SimpleDateFormat("EEEE", Locale.ENGLISH).format(date)
+                else -> SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(date)
             }
         }
     }

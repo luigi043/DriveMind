@@ -28,14 +28,25 @@ class DrivingFragment : Fragment() {
 
     private val viewModel: DrivingViewModel by viewModels()
 
-    private val permissionLauncher = registerForActivityResult(
+    private val locationLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        val audioGranted = permissions[Manifest.permission.RECORD_AUDIO] == true
-        val locationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true
+        if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
+            viewModel.startDrivingDetection()
+        }
+    }
 
-        if (audioGranted) setupSpeechButton()
-        if (locationGranted) viewModel.startDrivingDetection()
+    private val microphoneLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            viewModel.startListening()
+        } else {
+            _binding?.let {
+                Snackbar.make(it.root, com.drivemind.R.string.permission_audio_settings, Snackbar.LENGTH_LONG)
+                    .show()
+            }
+        }
     }
 
     override fun onCreateView(
@@ -48,23 +59,19 @@ class DrivingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requestPermissionsIfNeeded()
+        setupDrivingDetection(savedInstanceState == null)
         setupUi()
         observeState()
     }
 
-    private fun requestPermissionsIfNeeded() {
-        val permissions = mutableListOf<String>()
-        if (!hasPermission(Manifest.permission.RECORD_AUDIO))
-            permissions.add(Manifest.permission.RECORD_AUDIO)
-        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION))
-            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
-
-        if (permissions.isNotEmpty()) {
-            permissionLauncher.launch(permissions.toTypedArray())
-        } else {
-            setupSpeechButton()
+    private fun setupDrivingDetection(requestPermission: Boolean) {
+        if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             viewModel.startDrivingDetection()
+        } else if (requestPermission && !hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            locationLauncher.launch(arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ))
         }
     }
 
@@ -72,11 +79,11 @@ class DrivingFragment : Fragment() {
         binding.btnMic.setOnClickListener { handleMicClick() }
     }
 
-    private fun setupSpeechButton() {
-        binding.btnMic.isEnabled = true
-    }
-
     private fun handleMicClick() {
+        if (!hasPermission(Manifest.permission.RECORD_AUDIO)) {
+            microphoneLauncher.launch(Manifest.permission.RECORD_AUDIO)
+            return
+        }
         when (viewModel.uiState.value) {
             is DrivingViewModel.UiState.Listening -> viewModel.stopListening()
             is DrivingViewModel.UiState.Idle,
@@ -100,6 +107,7 @@ class DrivingFragment : Fragment() {
             is DrivingViewModel.UiState.Idle -> {
                 binding.apply {
                     btnMic.setIconResource(com.drivemind.R.drawable.ic_mic)
+                    btnMic.contentDescription = getString(com.drivemind.R.string.tap_to_speak)
                     tvStatus.text = getString(com.drivemind.R.string.tap_to_speak)
                     tvPartial.visibility = View.GONE
                     progressWave.visibility = View.GONE
@@ -109,6 +117,7 @@ class DrivingFragment : Fragment() {
             is DrivingViewModel.UiState.Listening -> {
                 binding.apply {
                     btnMic.setIconResource(com.drivemind.R.drawable.ic_mic_active)
+                    btnMic.contentDescription = getString(com.drivemind.R.string.finish_recording)
                     tvStatus.text = getString(com.drivemind.R.string.listening)
                     tvPartial.visibility = View.GONE
                     progressWave.visibility = View.VISIBLE
@@ -127,6 +136,7 @@ class DrivingFragment : Fragment() {
             is DrivingViewModel.UiState.Saved -> {
                 binding.apply {
                     btnMic.setIconResource(com.drivemind.R.drawable.ic_mic)
+                    btnMic.contentDescription = getString(com.drivemind.R.string.tap_to_speak)
                     progressWave.visibility = View.GONE
                     tvPartial.visibility = View.GONE
                     cardSaved.visibility = View.VISIBLE
@@ -143,6 +153,7 @@ class DrivingFragment : Fragment() {
             is DrivingViewModel.UiState.Error -> {
                 binding.apply {
                     btnMic.setIconResource(com.drivemind.R.drawable.ic_mic)
+                    btnMic.contentDescription = getString(com.drivemind.R.string.tap_to_speak)
                     progressWave.visibility = View.GONE
                     tvPartial.visibility = View.GONE
                     tvStatus.text = getString(com.drivemind.R.string.tap_to_retry)

@@ -42,7 +42,7 @@ class AppPreferences @Inject constructor(
     }
 
     val preferredLanguage: Flow<String> = dataStore.data.map { prefs ->
-        prefs[Keys.PREFERRED_LANGUAGE] ?: "pt-PT"
+        prefs[Keys.PREFERRED_LANGUAGE] ?: "en-US"
     }
 
     val onboardingComplete: Flow<Boolean> = dataStore.data.map { prefs ->

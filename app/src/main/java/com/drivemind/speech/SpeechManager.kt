@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 /**
  * Manages Android SpeechRecognizer lifecycle and state.
- * Works fully OFFLINE - does not require network connection.
+ * Recognition availability and network use depend on the installed service.
  */
 @Singleton
 class SpeechManager @Inject constructor(
@@ -43,6 +43,13 @@ class SpeechManager @Inject constructor(
     fun startListening(language: String = "en-US") {
         if (isListening) return
 
+        if (!isAvailable) {
+            _state.value = SpeechState.Error(
+                SpeechRecognizer.ERROR_CLIENT,
+                "Speech recognition is unavailable on this device"
+            )
+            return
+        }
         initRecognizer()
 
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {

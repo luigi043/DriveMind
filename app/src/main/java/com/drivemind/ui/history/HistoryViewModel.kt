@@ -37,12 +37,9 @@ class HistoryViewModel @Inject constructor(
     ) { query, filter ->
         Pair(query, filter)
     }.flatMapLatest { (query, filter) ->
-        when {
-            query.isNotBlank() -> searchNotesUseCase(query)
-            filter != null -> getAllNotesUseCase().map { notes ->
-                notes.filter { it.type == filter }
-            }
-            else -> getAllNotesUseCase()
+        val matchingNotes = if (query.isBlank()) getAllNotesUseCase() else searchNotesUseCase(query.trim())
+        if (filter == null) matchingNotes else matchingNotes.map { notes ->
+            notes.filter { it.type == filter }
         }
     }.stateIn(
         scope = viewModelScope,

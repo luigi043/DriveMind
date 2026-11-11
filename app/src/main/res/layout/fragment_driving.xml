@@ -97,7 +97,7 @@
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:enabled="false"
+        android:contentDescription="@string/tap_to_speak"
         app:cornerRadius="80dp"
         app:icon="@drawable/ic_mic"
         app:iconGravity="textStart"

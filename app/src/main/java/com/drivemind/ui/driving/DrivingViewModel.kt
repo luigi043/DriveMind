@@ -109,8 +109,8 @@ class DrivingViewModel @Inject constructor(
                     _uiState.value = UiState.Idle
                 },
                 onFailure = {
-                    _uiState.value = UiState.Error("Erro ao guardar nota")
-                    ttsManager.speak("Erro ao guardar. Tente novamente.")
+                    _uiState.value = UiState.Error("Could not save the note")
+                    ttsManager.speak("Could not save the note. Try again.")
                 }
             )
         }

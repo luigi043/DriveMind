@@ -104,7 +104,7 @@ class NoteDetailFragment : Fragment() {
                 getString(R.string.original_prefix, note.rawContent)
             } else ""
             tvTimestamp.text = SimpleDateFormat(
-                "dd MMM yyyy, HH:mm", Locale.getDefault()
+                "dd MMM yyyy, HH:mm", Locale.ENGLISH
             ).format(Date(note.timestamp))
             tvType.text = getString(note.type.labelResId)
             tvCategory.text = "${note.category.emoji} ${getString(note.category.labelResId)}"

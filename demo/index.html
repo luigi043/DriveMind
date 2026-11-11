@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DriveMind | Interactive demo</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#111619;color:#eef4f4}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at top,#243d3a,transparent 65%)}
+.phone{width:min(100%,400px);height:min(760px,calc(100dvh - 48px));min-height:530px;border:8px solid #3d484b;border-radius:38px;background:#12191c;box-shadow:0 20px 60px #0009;display:flex;flex-direction:column;overflow:hidden}
+header,nav{padding:16px 20px;background:#1c272a}header{border-bottom:1px solid #35474a}nav{border-top:1px solid #35474a;display:flex;gap:8px}nav button{flex:1}small{color:#b0c6c4}h1,h2,p{margin:0 0 10px}h1{font-size:1.5rem;margin:0}h2{font-size:1.4rem}.label{color:#97e4ca;font-size:.75rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+main{padding:22px 20px;flex:1;overflow:auto}button,input,select,textarea{font:inherit;color:inherit;border-radius:10px;border:1px solid #58716f;background:#202e31;padding:10px 12px}button{cursor:pointer;min-height:44px}button:hover{background:#304443}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #97e4ca;outline-offset:2px}.primary,nav [aria-current]{background:#a3e9d2;color:#14342d;font-weight:700}.primary:hover,nav [aria-current]:hover{background:#c0f3e3}.row{display:flex;flex-wrap:wrap;gap:8px;margin-block:12px}.field{width:100%;margin-bottom:8px}textarea{min-height:130px;resize:vertical}.note{width:100%;text-align:left;margin-bottom:8px;overflow-wrap:anywhere}.note span{display:block;color:#aad4c9;font-size:.8rem}.capture{margin:22px 0;width:100%;min-height:64px}.detail{white-space:pre-wrap;overflow-wrap:anywhere}.message{color:#abdfce;min-height:24px;padding:0 20px}.badge{display:inline-block;background:#283e3b;color:#a3e9d2;border-radius:24px;padding:4px 12px;margin-bottom:14px}dialog{max-width:calc(100% - 32px);background:#1c272a;border:1px solid #58716f;border-radius:16px;color:inherit}dialog::backdrop{background:#0009}
+@media(max-width:600px){body{padding:0;display:block;background:#12191c}.phone{width:100%;height:100dvh;min-height:0;border:0;border-radius:0;box-shadow:none}nav{padding-bottom:max(16px,env(safe-area-inset-bottom))}}
+</style>
+<div class="phone">
+<header><div class="label">Interactive demo</div><h1>DriveMind</h1><small>Simulation · Sample notes, speed and speech</small></header>
+<main id="screen"></main>
+<div id="message" class="message" role="status"></div>
+<nav aria-label="App tabs"><button id="drive">Drive</button><button id="notes">Notes</button></nav>
+</div>
+<dialog id="confirm"><form method="dialog"><h2>Delete note?</h2><p>This note will be removed from this demo.</p><div class="row"><button value="cancel" autofocus>Cancel</button><button value="delete">Delete</button></div></form></dialog>
+<script>
+'use strict';
+const screen = document.querySelector('#screen');
+const message = document.querySelector('#message');
+const confirmDialog = document.querySelector('#confirm');
+const entries = [
+  {id:1,type:'Task',text:'Send the revised proposal to the client.'},
+  {id:2,type:'Idea',text:'Make a checklist for site visits.'},
+  {id:3,type:'Note',text:'The loading entrance is on Oak Street.'}
+];
+let nextId = 4;
+let selectedId = null;
+let query = '';
+let type = 'All';
+let moving = false;
+let timer;
+const types = ['All','Note','Task','Reminder','Idea'];
+const drive = document.querySelector('#drive');
+const notes = document.querySelector('#notes');
+function announce(text = '') { message.textContent = text; }
+function setTab(tab) {
+  for (const button of [drive,notes]) {
+    if (button === tab) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  }
+}
+function showDrive() {
+  clearTimeout(timer);
+  selectedId = null;
+  setTab(drive);
+  screen.innerHTML = '<h2>Capture a note</h2><div class="badge" id="speed"></div><p>Try a sample voice capture. The demo uses preset text and does not access your microphone or location.</p><button class="primary capture" id="capture">Capture sample</button><button id="motion"></button>';
+  const speed = screen.querySelector('#speed');
+  const motion = screen.querySelector('#motion');
+  function updateMotion() {
+    speed.textContent = moving ? 'Simulated driving · 42 km/h' : 'Simulated parked · 0 km/h';
+    motion.textContent = moving ? 'Simulate parking' : 'Simulate driving';
+  }
+  updateMotion();
+  motion.onclick = () => { moving = !moving; updateMotion(); };
+  const capture = screen.querySelector('#capture');
+  capture.onclick = () => {
+    capture.disabled = true;
+    capture.textContent = 'Simulating speech…';
+    announce();
+    timer = setTimeout(() => {
+      entries.unshift({id:nextId++,type:'Task',text:'Call the supplier about Thursday’s delivery.'});
+      capture.disabled = false;
+      capture.textContent = 'Capture sample';
+      announce('Sample task saved.');
+    },700);
+  };
+}
+function showNotes() {
+  clearTimeout(timer);
+  selectedId = null;
+  setTab(notes);
+  screen.innerHTML = '<h2>Notes</h2><label for="search">Search notes</label><input class="field" type="search" id="search"><label for="filter">Filter by type</label><select class="field" id="filter"></select><div id="results" aria-live="polite"></div>';
+  const search = screen.querySelector('#search');
+  const filter = screen.querySelector('#filter');
+  search.value = query;
+  for (const option of types) filter.add(new Option(option, option));
+  filter.value = type;
+  function renderResults() {
+    const results = screen.querySelector('#results');
+    results.replaceChildren();
+    const matches = entries.filter(note => (type === 'All' || note.type === type) &&
+      note.text.toLowerCase().includes(query.trim().toLowerCase()));
+    if (!matches.length) results.textContent = entries.length ? 'No matching notes.' : 'No notes yet.';
+    for (const note of matches) {
+      const button = document.createElement('button');
+      const label = document.createElement('span');
+      label.textContent = note.type;
+      button.className = 'note';
+      button.append(label, note.text);
+      button.onclick = () => { announce(); showDetail(note); };
+      results.append(button);
+    }
+  }
+  search.oninput = () => { query = search.value; renderResults(); };
+  filter.onchange = () => { type = filter.value; renderResults(); };
+  renderResults();
+}
+function showDetail(note) {
+  selectedId = note.id;
+  screen.innerHTML = '<button id="back">Back to notes</button><h2>Note details</h2><div class="badge"></div><p class="detail"></p><div class="row"><button id="edit">Edit</button><button id="read">Simulate read aloud</button><button id="delete">Delete</button></div>';
+  screen.querySelector('.badge').textContent = note.type;
+  screen.querySelector('.detail').textContent = note.text;
+  screen.querySelector('#back').onclick = () => { announce(); showNotes(); };
+  screen.querySelector('#edit').onclick = () => showEditor(note);
+  screen.querySelector('#read').onclick = () => announce('Simulated playback: ' + note.text);
+  screen.querySelector('#delete').onclick = () => { confirmDialog.returnValue = ''; confirmDialog.showModal(); };
+}
+function showEditor(note) {
+  announce();
+  screen.innerHTML = '<h2>Edit note</h2><form><label for="text">Note content</label><textarea class="field" id="text" required></textarea><div class="row"><button class="primary">Save changes</button><button type="button" id="cancel">Cancel</button></div></form>';
+  const field = screen.querySelector('textarea');
+  field.value = note.text;
+  field.focus();
+  field.oninput = () => field.setCustomValidity('');
+  screen.querySelector('form').onsubmit = event => {
+    event.preventDefault();
+    const text = field.value.trim();
+    if (!text) { field.setCustomValidity('Enter some note content.'); field.reportValidity(); return; }
+    note.text = text;
+    showDetail(note);
+    announce('Changes saved.');
+  };
+  screen.querySelector('#cancel').onclick = () => showDetail(note);
+}
+confirmDialog.onclose = () => {
+  if (confirmDialog.returnValue !== 'delete') return;
+  const index = entries.findIndex(note => note.id === selectedId);
+  if (index < 0) return;
+  entries.splice(index, 1);
+  showNotes();
+  announce('Note deleted.');
+};
+drive.onclick = () => { announce(); showDrive(); };
+notes.onclick = () => { announce(); showNotes(); };
+showDrive();
+</script>
+</html>

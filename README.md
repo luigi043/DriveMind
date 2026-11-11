@@ -23,3 +23,7 @@ On Linux or macOS, use `./gradlew`. The debug APK is generated at `app/build/out
 - No DriveMind account or backend is needed. The browser demo and native app use separate data.
 
 Use a parked setup or a stationary emulator to test the interface. See the [native screen index](docs/verification/SCREEN-INDEX.md) for verification steps and coverage.
+
+## License
+
+MIT License.
